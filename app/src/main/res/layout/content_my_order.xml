@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/img_nav"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:elevation="50dp"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/check" />
+
+        <Spinner
+            android:id="@+id/month_spinnerview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/img_nav"
+            android:entries="@array/spinnerMonths"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:paddingEnd="8dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/title1"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_toRightOf="@+id/month_spinnerview"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:elevation="50dp"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/check" />
+
+        <Spinner
+            android:id="@+id/yearPinnserview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/title1"
+            android:entries="@array/spinnerYear"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:paddingEnd="8dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/noDatafound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="48dp"
+        android:text="No Result Found"
+        android:textSize="32sp"
+        android:visibility="gone" />
+</LinearLayout>

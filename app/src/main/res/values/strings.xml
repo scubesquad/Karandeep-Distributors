@@ -1,0 +1,147 @@
+<resources>
+    <string name="app_name">KarandeepDistributors</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main2">Brands</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Profile</string>
+    <string name="menu_gallery">Home</string>
+    <string name="menu_slideshow">My Orders</string>
+    <string name="menu_tools">About Us</string>
+    <string name="menu_share">Route Plan</string>
+    <string name="menu_send">Contact Us</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="Rs">\u20B9</string>
+    <string name="profileActivity">My Profile</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_brand_details"> Products </string>
+    <string name="title_activity_cart">Cart</string>
+    <string name="menu_search">Search</string>
+    <string name="title_activity_my_order">My Order</string>
+    <string name="title_activity_route_plan">Route Plan</string>
+    <string name="title_activity_about_us"> About Us </string>
+    <string-array name="quantity">
+        <item> 1 ML </item>
+        <item> 2 ML </item>
+        <item> 3 ML </item>
+        <item> 4 ML </item>
+        <item> 5 ML </item>
+        <item> 6 ML </item>
+        <item> 7 ML </item>
+        <item> 8 ML </item>
+        <item> 9 ML </item>
+        <item> 10 ML </item>
+        <item> 11 ML </item>
+        <item> 12 ML </item>
+        <item> 13 ML </item>
+        <item> 14 ML </item>
+        <item> 15 ML </item>
+        <item> 16 ML </item>
+        <item> 17 ML </item>
+        <item> 18 ML </item>
+        <item> 19 ML </item>
+        <item> 20 ML </item>
+    </string-array>
+    <string name="company_overview">
+Established in 1985, Karandeep Enterprises (Karandeep) is one of the most reputed distribution companies in Mumbai. The main areas of business include stocking and distribution of Fast Moving Consumer Goods, Pharmaceutical and Herbal Products.
+
+The Company was established in 1985 under the dynamic leadership of Mr. Deepak H Dani as a small wholesale outlet. Today, Karandeep handles more than 400 products for reputed domestic and multi national companies like Ferrero India Pvt Ltd, Dabur India Ltd, Unicharm, Effem India Ltd, The Himalaya Drug Co. Ltd etc.
+
+Karandeep has a close and personalized relationship with a network of 1840 Medical Stores, Kirana Stores, General Stores, super markets, cosmetics outlet, Malls. We cover almost the entire city of Mumbai starting from Bandra upto Borivali in the Western Mumbai and from Thane upto Panvel and Raigad
+</string>
+    <string name="vision">To be the best service provider, with the strength of our established business network in any geographical area of Maharashtra.</string>
+    <string name="team">Mr. Deepak H. Dani – Promoter
+
+Mr. Deepak Dani has more than 27 years experience in Sales, Marketing, Distribution and Brand Building. Mr. Dani started his career as a Sales Representative in Spensors Company in Mumbai in 1980. In 1985, Mr. Dani decided to build his own business from scratch and started Karandeep Enterprises as a FMCG Distributor.
+
+Following the principals of Honesty, Integrity and Hard Work, Mr. Dani has been successful in building a flawless reputation and earning the respect of many reputed domestic and multinational companies.
+
+Mr. Karan D Dani – Chief Operating Officer
+
+Mr. Karan Dani is the “Genext” of the Group. Mr. Karan Dani handles the day-to-day operations of the company. Mr. Dani was instrumental in starting the Super Stockist business for J.R. Herbal Care (Noida) under the group company “Pratha Marketing” which generated yearly  turnover of Rs. 1.1 million
+
+</string>
+    <string name="core_competencies">a.	Vast experience of dealing with reputed domestic and multinational companies and handling brands.\n
+\n
+b.	Accessibility to 600 retail outlets, 450 medical stores, 20 malls.\n
+\n
+c.	Personalized relationship at all levels with Companies, Retail Outlets, Distributors, Modern trade outlets etc.\n
+\n
+d.	Understanding of the market and ability to gather market intelligence.\n
+\n
+e.	Financial Stability and Security of Payment\n
+\n
+f.	Capacity to hold inventory and replenish the system\n
+\n
+g.	Superior market information and intelligence system to obtain accurate market feedback\n
+\n
+h.	Dedicated management team to control and monitor distribution activities\n
+\n
+i.	Professional management with thorough know-how and experience\n
+\n
+j.	Regular market review and appraisal\n
+</string>
+    <string name="business_activities"> The main activities of the Company include: \n
+\n
+a.	Representation of reputed brands \n
+\n
+b.	Inventory management and mass distribution \n
+\n
+c.	Providing valuable market information to the Principals \n
+\n
+d.	Cash and Carry Business \n
+\n
+e.	Super Stockists.
+</string>
+    <string name="infrastructure">The Company’s office and warehouse is located in the central suburban district of Santacruz. We have total godown space of 3000 Sq Feet strategically located close to the Western Express Highway and the Domestic Airport.
+
+The Company is well equipped latest computer systems and softwares. We have a well maintained fleet of 11 Delivery Vans for prompt delivery and a dedicated team of professional sales staff for providing personalized service to customers and its principals.
+</string>
+    <string name="companies">\u0020Dabur India Ltd.\n
+                                J.K Helene Curtis\n
+                                Ferrero India Pvt Ltd\n
+                                Ferrero Rocher\n
+                                Kinder Joy.\n
+                                The Himalaya Drug Co.\n
+                                Skin care products\n
+                                Mars International India Pvt Ltd\n
+                                Pedigree And Whiskas pet Foods\n
+           	                    Kelloggs India Ltd\n
+                                Park Avenue Deo\n
+                                Beer Shampoos\n
+                                Kelloggs Corn flakes\n
+                                Prigles.\n
+</string>
+    <string name="contactUs">\u0020Office Address :\n
+                                      Unit no. 37/295 Anand Nagar,\n
+                                      vakola police station road,\n
+                                      near W.E Highway,\n
+                                      Santacruz (East). Mumbai 400 055.\n
+
+           Contact number : 9833520222/9322295152\n
+           Email address    : karandeep1984@yahoo.com\n
+</string>
+    <string name="title_activity_contact_us">ContactUsActivity</string>
+    <string-array name="spinnerMonths">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="spinnerYear">
+        <item>2019</item>
+        <item>2020</item>
+    </string-array>
+    <string name="title_activity_order_details">OrderDetails</string>
+</resources>

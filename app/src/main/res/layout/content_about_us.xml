@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/scroll_view"
+        android:clipToPadding="false"
+        android:paddingBottom="40dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="54dp"
+            android:padding="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activities.AboutUsActivity"
+            tools:showIn="@layout/app_bar_about_us">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="I. Company Overview"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv"
+                android:fontFamily="sans-serif"
+                android:text="@string/company_overview"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv2"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="II.Vision"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv3"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/vision"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv4"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="III.Management Team"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv5"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/team"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv6"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="IV.Core Competencies"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv7"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/core_competencies"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv8"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="V.Business Activities"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv9"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/business_activities"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv10"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="VI.Infrastructure"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv11"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/infrastructure"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv12"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="VII.Companies And Brands"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv13"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/companies"
+                android:textSize="@dimen/subtitle" />
+
+            <TextView
+                android:id="@+id/tv15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv14"
+                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:text="VIII.	Contact Us"
+                android:textColor="@color/black"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tv16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv15"
+                android:fontFamily="sans-serif"
+                android:text="@string/contactUs"
+                android:textSize="@dimen/subtitle" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
