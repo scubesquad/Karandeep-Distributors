@@ -14,11 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.OrderDetails"
+        <!--<activity
+            android:name=".activities.OrderDetailsActivity"
             android:label="@string/title_activity_order_details"
             android:parentActivityName=".activities.MyOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>-->
         <activity
             android:name=".activities.MyProfileActivity"
             android:exported="true"
@@ -82,10 +82,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c880e238b19ffd05e3b48b19f6cc3114c25e4132"/>
         <activity
             android:name=".activities.BrandDetailsActivity"
             android:exported="true"
             android:label="@string/title_activity_brand_details"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.OrderDetailsActivity"
+            android:label="@string/title_activity_order_details"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 </manifest>

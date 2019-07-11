@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif"
-            android:text="Company Name : "
+            android:maxLines="2"
+            android:text="Company Name  : "
             android:textSize="@dimen/activity_vertical_margin" />
 
         <TextView
@@ -46,13 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif"
-            android:text="Address : "
+            android:text="Address                :  "
             android:textSize="@dimen/activity_vertical_margin" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
+            android:layout_marginStart="0dp"
             android:fontFamily="sans-serif"
             android:text="Unit no. 37/295Anand Nagar,Vakola police station road,Near W.E Highway,Santa Cruz (East). Mumbai 400 055"
             android:textSize="@dimen/activity_vertical_margin" />
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Email : "
+            android:text="Email                     :  "
             android:layout_marginStart="10dp"
             android:textSize="@dimen/activity_vertical_margin" />
 
@@ -79,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:layout_marginStart="74dp"
+            android:layout_marginStart="0dp"
             android:text="karandeep1984@yahoo.com"
             android:textSize="@dimen/activity_vertical_margin" />
     </LinearLayout>
@@ -97,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="LandLine : "
+            android:text="LandLine               :  "
             android:layout_marginStart="10dp"
             android:textSize="@dimen/activity_vertical_margin" />
 
@@ -105,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:layout_marginStart="49dp"
+            android:layout_marginStart="0dp"
             android:textSize="@dimen/activity_vertical_margin" />
     </LinearLayout>
 
@@ -122,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Mobile No.: "
+            android:text="Mobile No.            :  "
             android:layout_marginStart="10dp"
             android:textSize="@dimen/activity_vertical_margin" />
 
@@ -130,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="0dp"
             android:text="9833520222/9322295152"
             android:textSize="@dimen/activity_vertical_margin" />
     </LinearLayout>
@@ -149,14 +150,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:layout_marginStart="10dp"
-            android:text="Location: "
+            android:text="Location                : "
             android:textSize="@dimen/activity_vertical_margin" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="0dp"
             android:text="Santa Cruz (East). Mumbai 400 055."
             android:textSize="@dimen/activity_vertical_margin" />
     </LinearLayout>

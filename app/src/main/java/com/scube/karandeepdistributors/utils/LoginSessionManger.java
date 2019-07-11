@@ -36,6 +36,7 @@ public class LoginSessionManger {
 
     /**
      * saving contact number while signUp
+     *
      * @param contact
      */
     public void saveContactNo(String contact) {
@@ -53,6 +54,7 @@ public class LoginSessionManger {
 
     /**
      * get retailer id
+     *
      * @return
      */
     public String getRetailerId() {
@@ -61,6 +63,7 @@ public class LoginSessionManger {
 
     /**
      * get contact number
+     *
      * @return
      */
     public String getKeyContact() {
@@ -69,6 +72,7 @@ public class LoginSessionManger {
 
     /**
      * return true or false statement if token is available
+     *
      * @return
      */
     public boolean isAccessTokenAvailable() {
@@ -77,6 +81,7 @@ public class LoginSessionManger {
 
     /**
      * return key access token
+     *
      * @return
      */
     public String getKeyAccesstoken() {
@@ -93,6 +98,7 @@ public class LoginSessionManger {
 
     /**
      * get key name
+     *
      * @return
      */
     public String getKeyName() {
@@ -101,27 +107,21 @@ public class LoginSessionManger {
 
     /**
      * get email
+     *
      * @return
      */
     public String getKeyEmail() {
         return preferences.getString(KEY_EMAIL, null);
     }
 
-   public int getTotalNumberOfCart(){
-        return orderArrayList.size();
-   }
-
-   public void addToCart(Order order){
-       orderArrayList.add(order);
-
-   }
     /**
      * save user details while sign in
-     * @param userId logged in retailer id
+     *
+     * @param userId   logged in retailer id
      * @param userName logged in retailer name
-     * @param email logged in retailer email id
-     * @param token access token which is received in response after logged in
-     * @param contact logged in retailer contact number
+     * @param email    logged in retailer email id
+     * @param token    access token which is received in response after logged in
+     * @param contact  logged in retailer contact number
      */
     public void saveUserDetails(String userId, String userName, String email, String token, String contact) {
         editor.putString(KEY_ACCESSTOKEN, token);
@@ -133,13 +133,18 @@ public class LoginSessionManger {
         editor.apply();
     }
 
+    public boolean isUserLoggedIn() {
+        return preferences.getBoolean(KEY_LOGIN, false);
+    }
+
     /**
      * save user's profile
-     * @param name retailer name
-     * @param email retailer emailId
-     * @param contact retailer contact number
+     *
+     * @param name      retailer name
+     * @param email     retailer emailId
+     * @param contact   retailer contact number
      * @param comp_name retailer company name
-     * @param address retailer address
+     * @param address   retailer address
      * @param gstnumber retailer gst number
      */
     public void saveUserProfile(String name, String email, String contact, String comp_name, String address, String gstnumber) {

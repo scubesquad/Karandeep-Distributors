@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -35,6 +34,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.scube.karandeepdistributors.activities.BrandDetailsActivity.quantity;
+
 /**
  * Information About Company Distributor
  */
@@ -46,7 +47,7 @@ public class AboutUsActivity extends AppCompatActivity
     ProgressDialogManager dialogManager;
     LoginSessionManger loginSessionManger;
     TextView username, userEmail;
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +112,7 @@ public class AboutUsActivity extends AppCompatActivity
         MenuItem menuItem = menu.findItem(R.id.cart_action);
         menuItem.setVisible(true);
         CartClass cartClass = new CartClass();
-        int count = cartClass.getTotalNumberOfItems();
+        count = cartClass.getTotalNumberOfItems();
         menuItem.setIcon(Converter.convertLayoutToImage(mContext, count, R.drawable.ic_shopping_cart_white_24dp));
         return true;
     }
@@ -129,8 +130,10 @@ public class AboutUsActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.cart_action) {
+            Intent intent = new Intent(mContext, CartActivity.class);
+            intent.putExtra("Quantity", quantity);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,30 +149,43 @@ public class AboutUsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile5) {
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
-//            finish();
             invokeProfileWebService();
         } else if (id == R.id.nav_home5) {
-            startActivity(new Intent(mContext, MainActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders5) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
         } else if (id == R.id.nav_about_us5) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
         } else if (id == R.id.nav_route_plan5) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
-//            finish();
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
         } else if (id == R.id.nav_contactus5) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
         } else if (id == R.id.nav_logout5) {
             invokeLogoutWerService();
+            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void refreshMenu() {
+        invalidateOptionsMenu();
     }
 
     /**
@@ -212,9 +228,9 @@ public class AboutUsActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+//                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

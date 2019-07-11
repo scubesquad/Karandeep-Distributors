@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scube.karandeepdistributors.R;
-import com.scube.karandeepdistributors.activities.OrderDetails;
+import com.scube.karandeepdistributors.activities.OrderDetailsActivity;
 import com.scube.karandeepdistributors.model.Order;
 
 import java.util.ArrayList;
@@ -55,18 +55,22 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         holder.date.setText(orderArrayList.get(position).getOrderDate());
         holder.orderId.setText(orderArrayList.get(position).getOrderId());
         holder.price.setText(orderArrayList.get(position).getOrderPrice());
-       /* holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, OrderDetails.class).
+                Order order = orderArrayList.get(position);
+                Intent intent = new Intent(context,OrderDetailsActivity.class);
+                intent.putExtra("orders",order);
+                context.startActivity(intent);
+              /*  context.startActivity(new Intent(context, OrderDetailsActivity.class).
                         putExtra("brand_name", orderArrayList.get(position).getBrandName()).
                         putExtra("product_name", orderArrayList.get(position).getProductName()).
                         putExtra("volume", orderArrayList.get(position).getProductVolume()).
                         putExtra("quantity", orderArrayList.get(position).getQuantity()).
                         putExtra("price", orderArrayList.get(position).getProductPrice()).
-                        putExtra("image", orderArrayList.get(position).getProductImage()));
+                        putExtra("image", orderArrayList.get(position).getProductImage()));*/
             }
-        });*/
+        });
     }
     /**
      * size Of arraylist

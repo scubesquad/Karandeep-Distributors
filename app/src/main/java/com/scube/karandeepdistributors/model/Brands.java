@@ -5,7 +5,15 @@ package com.scube.karandeepdistributors.model;
  */
 public class Brands {
     private String brandId,product_id,productName,
-            brandName,categoryId,product_img,logo,code,volume,price;
+            brandName,categoryId,product_img,logo,code,volume,price,quantity;
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
     public String getBrandId() {
         return brandId;

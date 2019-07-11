@@ -8,41 +8,35 @@ import java.util.ArrayList;
  * Adding and Removing Products from Cart
  */
 public class CartClass  {
-    public static ArrayList<Order> cartArrayList = new ArrayList<>();
-    /**
-     * arraylist of products is added to cart
-     * @param order
-     */
-    public void addToCart(Order order) {
-        cartArrayList.add(order);
-    }
+  public static ArrayList<Order> cartArrayList = new ArrayList<>();
 
-    public void removeFromcart(ArrayList brands) {
-        cartArrayList.remove(brands);
-    }
-
-    /**
-     * remove particular product from cart according to its position
-     * @param position
-     */
-    public void removeItem(int position) {
-        this.cartArrayList.remove(position);
-    }
-
-    /**
-     * get Total number of items count
-     * @return
-     */
-    public int getTotalNumberOfItems() {
-        return cartArrayList.size();
-    }
-
-    /**
-     * get list of cart items
-     * @return
-     */
-    public ArrayList<Order> getCartArrayList() {
-        return cartArrayList;
-    }
+  /**
+   * arraylist of products is added to cart
+   * @param order
+   */
+  public void addToCart(Order order) {
+    cartArrayList.add(order);
+  }
+  /**
+   * remove particular product from cart according to its position
+   * @param position
+   */
+  public void removeItem(int position) {
+    this.cartArrayList.remove(position);
+  }
+  /**
+   * get Total number of items count
+   * @return
+   */
+  public int getTotalNumberOfItems() {
+    return cartArrayList.size();
+  }
+  /**
+   * get list of cart items
+   * @return
+   */
+  public ArrayList<Order> getCartArrayList() {
+    return cartArrayList;
+  }
 
 }

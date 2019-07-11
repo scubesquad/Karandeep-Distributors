@@ -40,6 +40,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.scube.karandeepdistributors.activities.BrandDetailsActivity.quantity;
+
 /**
  * Route Plan Activity class
  */
@@ -128,6 +130,7 @@ public class RoutePlanActivity extends AppCompatActivity
 
     /**
      * This method passes the MenuItem selected.
+     *
      * @param menu element must be the root node for the file and can hold one or more <item> and <group> elements.
      * @return
      */
@@ -142,8 +145,10 @@ public class RoutePlanActivity extends AppCompatActivity
         menuItem.setIcon(Converter.convertLayoutToImage(mContext, count, R.drawable.ic_shopping_cart_white_24dp));
         return true;
     }
+
     /**
      * passes the MenuItem selected. You can identify the item by calling getItemId(), which returns the unique ID
+     *
      * @param item MenuItem: The selected item
      * @return
      */
@@ -154,13 +159,18 @@ public class RoutePlanActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.cart_action) {
+            Intent intent = new Intent(mContext, CartActivity.class);
+            intent.putExtra("Quantity", quantity);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
+
     /**
      * Listener for handling events on navigation items.
+     *
      * @param item MenuItem: The selected item
      * @return
      */
@@ -171,24 +181,41 @@ public class RoutePlanActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_profile4) {
             invokeProfileWebService();
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
         } else if (id == R.id.nav_home4) {
-            startActivity(new Intent(mContext, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders4) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us4) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan4) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus4) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
-        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_logout4) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
     /**
      * Profile Update/view Web Service
      */
@@ -244,6 +271,7 @@ public class RoutePlanActivity extends AppCompatActivity
                         intent.putExtra("company_name", jsonObject.getString("company_name"));
                         intent.putExtra("address", jsonObject.getString("address"));
                         intent.putExtra("company_gst_no", jsonObject.getString("company_gst_no"));
+
                         startActivity(intent);
                     }
                 } catch (Exception e) {
@@ -252,6 +280,7 @@ public class RoutePlanActivity extends AppCompatActivity
             }
         });
     }
+
     /**
      * Logout WebService for clearing session data from device
      */
@@ -292,15 +321,19 @@ public class RoutePlanActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+//                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void refreshMenu() {
+        invalidateOptionsMenu();
     }
 
     private int dpToPx(int dp) {
@@ -310,9 +343,9 @@ public class RoutePlanActivity extends AppCompatActivity
 
     /**
      * Web Service for Route Plan
+     *
      * @param retailerId Retailer Id
      */
-
     private void invokeRouteplanWebService(String retailerId) {
         dialogManager.showDialog();
         RequestParams params = new RequestParams();
@@ -405,8 +438,10 @@ public class RoutePlanActivity extends AppCompatActivity
         satArea.setText(routePlans.get(6).getSatArea());
         satPerson.setText(routePlans.get(6).getSatPerson());
     }
+
     /**
      * Information Dialog box
+     *
      * @param title   title of dialog box
      * @param message detailed description message
      */

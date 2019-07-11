@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     LoginSessionManger loginSessionManger;
     String emailId;
     TextView username, userEmail;
+    CartClass cartClass;
 
     public void refreshMenu() {
         invalidateOptionsMenu();
@@ -113,11 +114,13 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         refreshMenu();
     }
+
     /**
      * Binding Of Components
      */
     private void initializeView() {
         mContext = MainActivity.this;
+        cartClass = new CartClass();
         loginSessionManger = new LoginSessionManger(mContext);
         networkHelper = new NetworkHelper(mContext);
         dialogManager = new ProgressDialogManager(mContext);
@@ -135,24 +138,32 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }*/
+
     /**
      * This method passes the MenuItem selected.
+     *
      * @param menu element must be the root node for the file and can hold one or more <item> and <group> elements.
      * @return
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
-        MenuItem menuItem = menu.findItem(R.id.cart_action);
-        menuItem.setVisible(true);
-        CartClass cartClass = new CartClass();
-        int count = cartClass.getTotalNumberOfItems();
-        menuItem.setIcon(Converter.convertLayoutToImage(mContext, count, R.drawable.ic_shopping_cart_white_24dp));
+        if (loginSessionManger.isUserLoggedIn()) {
+            getMenuInflater().inflate(R.menu.main2, menu);
+            MenuItem menuItem = menu.findItem(R.id.cart_action);
+            menuItem.setVisible(true);
+            CartClass cartClass = new CartClass();
+            int count = cartClass.getTotalNumberOfItems();
+            menuItem.setIcon(Converter.convertLayoutToImage(mContext, count, R.drawable.ic_shopping_cart_white_24dp));
+        } else {
+            getMenuInflater().inflate(R.menu.main3, menu);
+        }
         return true;
     }
+
     /**
      * passes the MenuItem selected. You can identify the item by calling getItemId(), which returns the unique ID
+     *
      * @param item MenuItem: The selected item
      * @return
      */
@@ -164,13 +175,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart_action) {
-            startActivity(new Intent(mContext,CartActivity.class));
+            startActivity(new Intent(mContext, CartActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     /**
      * Listener for handling events on navigation items.
+     *
      * @param item MenuItem: The selected item
      * @return
      */
@@ -182,24 +195,39 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             invokeProfileWebService();
         } else if (id == R.id.nav_home) {
-            Intent intent = new Intent(mContext, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
+            Intent intent = new Intent(this, MyOrderActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
+            Intent intent = new Intent(this, AboutUsActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
+            Intent intent = new Intent(this, ContactUsActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_logout) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     /**
      * Logout WebService for clearing session data from device
@@ -241,9 +269,11 @@ public class MainActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+                        brandsArrayList.clear();
+                        homeScreenAdapter.notifyDataSetChanged();
+                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -451,5 +481,4 @@ public class MainActivity extends AppCompatActivity
                 .setNegativeButton("No", null)
                 .show();
     }
-
 }

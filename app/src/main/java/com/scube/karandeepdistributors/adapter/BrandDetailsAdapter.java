@@ -32,12 +32,14 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
     View itemView;
     private LayoutInflater inflater;
     private ArrayList<Brands> brandsArrayList;
-    String quantity, volume;
+    String volume;
     LoginSessionManger loginSessionManger;
     Class<MainActivity> mainActivity;
+    int s;
 
     /**
      * Base class providing the adapter to populate pages inside of a ViewPager.
+     *
      * @param mContext
      * @param brandsArrayList
      */
@@ -50,6 +52,7 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
 
     /**
      * called when the adapter is created and is used to initialize your ViewHolder(s).
+     *
      * @param parent   ViewGroup
      * @param viewType int
      * @return
@@ -64,52 +67,66 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
 
     /**
      * Binding of data getting from allCategory ArrayList
+     *
      * @param holder   Optimizing listView with the ViewHolder Pattern.
      * @param position position of every item in recyclerview
      */
     @Override
-    public void onBindViewHolder(BrandDetailsAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         loginSessionManger = new LoginSessionManger(context);
         holder.title.setText(brandsArrayList.get(position).getProductName());
         holder.price.setText("\u20B9" + brandsArrayList.get(position).getPrice());
         holder.brand_name.setText(brandsArrayList.get(position).getBrandName());
         holder.code.setText(brandsArrayList.get(position).getCode());
-//        holder.volume.setText(brandsArrayList.get(position).getVolume());
         volume = brandsArrayList.get(position).getVolume();
         try {
-            holder.spinner.setSelection(Integer.parseInt(volume));
+            holder.spinner.setText(volume);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.listener(new Picasso.Listener() {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        builder.build().load(brandsArrayList.get(position).getProduct_img()).into(holder.thumbnail);
-        holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                quantity = parent.getSelectedItem().toString();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        if(brandsArrayList.get(position).getProduct_img().isEmpty()){
+            holder.thumbnail.setImageResource(R.drawable.tree_736885__340);
+        }else {
+            try {
+                Picasso.Builder builder = new Picasso.Builder(context);
+                builder.build().load(brandsArrayList.get(position).getProduct_img()).into(holder.thumbnail);
+                builder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+        }
+        try {
+            holder.quantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    s = Integer.parseInt(parent.getSelectedItem().toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CartClass cartClass = new CartClass();
                 Order order = new Order();
                 order.setProduct_id(brandsArrayList.get(position).getProduct_id());
+                order.setBrandName(brandsArrayList.get(position).getBrandName());
                 order.setProductName(brandsArrayList.get(position).getProductName());
-                order.setProductVolume(brandsArrayList.get(position).getVolume());
+                order.setProductVolume(String.valueOf(brandsArrayList.get(position).getVolume()));
                 order.setProductPrice(brandsArrayList.get(position).getPrice());
                 order.setProductCode(brandsArrayList.get(position).getCode());
-                order.setQuantity(quantity);
+                order.setQuantity(String.valueOf(s));
                 cartClass.addToCart(order);
                 Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
                 if (context instanceof BrandDetailsActivity) {
@@ -121,14 +138,17 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
 
     /**
      * size of arraylist
+     *
      * @return
      */
     @Override
     public int getItemCount() {
         return brandsArrayList.size();
     }
+
     /**
      * Set quantity of product
+     *
      * @param value
      */
     public void setProductQuantity(int value) {
@@ -139,9 +159,9 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView
      */
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count, volume, price, brand_name, code;
+        public TextView title, count, volume, price, brand_name, code, spinner;
         public ImageView thumbnail, addToCart;
-        Spinner spinner;
+        Spinner quantity;
 
         public MyViewHolder(View view) {
             super(view);
@@ -153,6 +173,7 @@ public class BrandDetailsAdapter extends RecyclerView.Adapter<BrandDetailsAdapte
             volume = view.findViewById(R.id.volume_size);
             addToCart = view.findViewById(R.id.addToCart);
             code = view.findViewById(R.id.code);
+            quantity = view.findViewById(R.id.quantity_spinner);
         }
     }
 }

@@ -3,10 +3,12 @@ package com.scube.karandeepdistributors.activities;
  * Sign In Activity class
  */
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -96,7 +98,6 @@ public class SignInActivity extends AppCompatActivity {
 
     /**
      * Sign In WebService
-     *
      * @param userName Registered Contact number/emailId
      * @param password password
      */
@@ -141,7 +142,6 @@ public class SignInActivity extends AppCompatActivity {
                     String status = String.valueOf(response.getString("status"));
                     JSONObject jsonObject = response.getJSONObject("data");
                     if (status.equalsIgnoreCase("200")) {
-                        showInfoDialog("Success", response.getString("message"));
                         loginSessionManger.saveUserDetails(jsonObject.getString("user_id")
                                 , jsonObject.getString("user_name"),
                                 jsonObject.getString("email"),
@@ -162,7 +162,6 @@ public class SignInActivity extends AppCompatActivity {
 
     /**
      * Information Dialog box
-     *
      * @param title   title of dialog box
      * @param message detailed description message
      */
@@ -183,24 +182,17 @@ public class SignInActivity extends AppCompatActivity {
         infoDialog.setArguments(bundle);
         infoDialog.show(getSupportFragmentManager(), "complaint");
     }
-
-   /* @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK))
-        {
-            //do actions like show message
-            new AlertDialog.Builder(this)
-                    .setMessage("Are you sure you want to exit?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            SignInActivity.this.finish();
-                        }
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        SignInActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 }

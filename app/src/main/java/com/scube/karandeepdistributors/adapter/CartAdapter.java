@@ -1,16 +1,18 @@
 package com.scube.karandeepdistributors.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scube.karandeepdistributors.CartClass;
 import com.scube.karandeepdistributors.R;
@@ -39,6 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     /**
      * called when the adapter is created and is used to initialize your ViewHolder(s).
+     *
      * @param parent   ViewGroup
      * @param viewType int
      * @return
@@ -51,19 +54,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     /**
-     * Binding of data getting from allCategory ArrayLis
+     * Binding of data getting from allCategory ArrayList
+     *
      * @param holder   Optimizing listView with the ViewHolder Pattern.
      * @param position position of every item in recyclerview
      */
     @Override
     public void onBindViewHolder(final CartAdapter.MyViewHolder holder, final int position) {
         int price = 0;
+        CartClass cartClass = new CartClass();
+        final Order order = new Order();
         holder.title.setText(orderArrayList.get(position).getProductName());
+        holder.brandTitle.setText(orderArrayList.get(position).getBrandName());
         holder.code.setText(orderArrayList.get(position).getProductCode());
+        holder.volume.setText(orderArrayList.get(position).getProductVolume());
         holder.tvprice.setText(orderArrayList.get(position).getProductPrice());
+        holder.id.setText(orderArrayList.get(position).getProduct_id());
         try {
-            volume = orderArrayList.get(position).getProductVolume();
-            holder.volume_spinner.setSelection(Integer.parseInt(volume));
+            volume = orderArrayList.get(position).getQuantity();
+//            order.setQuantity(String.valueOf(Integer.parseInt(volume) - 1));
+            holder.volume_spinner.setSelection(Integer.parseInt(volume) - 1);
+//            cartClass.addToCart(order);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +83,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        holder.update_qty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, holder.id.getText().toString(), Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < orderArrayList.size(); i++) {
+                    if (orderArrayList.get(i).getProduct_id().equalsIgnoreCase(holder.id.getText().toString())) {
+                        String s = holder.volume_spinner.getSelectedItem().toString();
+                        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+                        orderArrayList.get(i).setQuantity(s);
+                    }
+                }
+            }
+        });
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 }
                 notifyDataSetChanged();
                 cartClass.removeItem(position);
+//                Toast.makeText(context, holder.title.getText(), Toast.LENGTH_SHORT).show();
             }
         });
         final int finalPrice = price;
@@ -97,12 +122,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 size = parent.getSelectedItem().toString();
                 try {
                     firstWord = size;
-                    if (firstWord.contains(" ")) {
-                        firstWord = firstWord.substring(0, firstWord.indexOf(" "));
-
-                        result = Integer.parseInt(firstWord);
-                        Log.e("Size", firstWord);
-                    }
+                    result = Integer.parseInt(firstWord);
+                    Log.e("Size", firstWord);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,8 +134,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     e.printStackTrace();
                 }
                 holder.result.setText("\u20B9" + calculation);
-                Order order = new Order();
-                order.setQuantity(String.valueOf(size));
             }
 
             @Override
@@ -125,32 +144,37 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     /**
      * size of arraylist
+     *
      * @return
      */
     @Override
     public int getItemCount() {
         return orderArrayList.size();
     }
+
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView
      */
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, volume, code, tvprice, quantityValue, result;
+        public TextView title, volume, code, tvprice, quantityValue, brandTitle, result, id;
         public ImageView thumbnail, badge, cancel;
-        public CardView cardView;
+        public RelativeLayout cardView;
         Spinner volume_spinner;
+        Button update_qty;
 
         public MyViewHolder(View view) {
             super(view);
+            id = (TextView) view.findViewById(R.id.orderId);
             title = (TextView) view.findViewById(R.id.product_name);
             code = (TextView) view.findViewById(R.id.product_code);
             thumbnail = (ImageView) view.findViewById(R.id.home_thumbnail);
-            cardView = (CardView) view.findViewById(R.id.card_view);
+            update_qty = (Button) view.findViewById(R.id.update_qty);
             badge = (ImageView) view.findViewById(R.id.icon_badge);
             volume = (TextView) view.findViewById(R.id.product_volume);
             volume_spinner = (Spinner) view.findViewById(R.id.product_quantity_spinner);
             quantityValue = (TextView) view.findViewById(R.id.product_quantity);
             tvprice = (TextView) view.findViewById(R.id.product_price);
+            brandTitle = (TextView) view.findViewById(R.id.brand_name);
             result = (TextView) view.findViewById(R.id.calculationResult);
             cancel = (ImageView) view.findViewById(R.id.cancel);
         }

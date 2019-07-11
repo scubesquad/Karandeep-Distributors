@@ -31,6 +31,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.scube.karandeepdistributors.activities.BrandDetailsActivity.quantity;
+
 /**
  * Contact Us Activity which gives information about Location and contact Details of Company
  */
@@ -112,50 +114,57 @@ public class ContactUsActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.cart_action) {
+            Intent intent = new Intent(mContext, CartActivity.class);
+            intent.putExtra("Quantity", quantity);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * Listener for handling events on navigation items.
-     *
      * @param item MenuItem: The selected item
      * @return
      */
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile6) {
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
-//            finish();
             invokeProfileWebService();
         } else if (id == R.id.nav_home6) {
-            startActivity(new Intent(mContext, MainActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders6) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us6) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan6) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
-//            finish();
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus6) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_logout6) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     /**
      * Logout WebService for clearing session data from device
      */
@@ -196,15 +205,19 @@ public class ContactUsActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+//                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void refreshMenu() {
+        invalidateOptionsMenu();
     }
 
     /**

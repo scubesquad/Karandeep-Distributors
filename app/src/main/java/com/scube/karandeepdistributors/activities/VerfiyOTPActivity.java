@@ -3,12 +3,10 @@ package com.scube.karandeepdistributors.activities;
  * Verify OTP Activity
  */
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -108,7 +106,6 @@ public class VerfiyOTPActivity extends AppCompatActivity {
 
     /**
      * Verify OTP Web Service
-     *
      * @param mobileNo mobile Number
      * @param otp      One Time password
      */
@@ -206,7 +203,6 @@ public class VerfiyOTPActivity extends AppCompatActivity {
                         Intent intent = new Intent(mContext, VerfiyOTPActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -214,20 +210,6 @@ public class VerfiyOTPActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*@Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        VerfiyOTPActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }*/
 }
 
 

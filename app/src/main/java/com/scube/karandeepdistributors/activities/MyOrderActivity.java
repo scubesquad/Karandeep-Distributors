@@ -42,8 +42,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.scube.karandeepdistributors.activities.BrandDetailsActivity.quantity;
 
 /**
  * Order Activity class
@@ -83,11 +87,13 @@ public class MyOrderActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-//        invokeFilterWebService(year, month, searchkey);
         monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                orderDataArraylist.clear();
+                Calendar c = Calendar.getInstance();
+                int year1 = c.get(Calendar.YEAR);
+                int month1 = c.get(Calendar.MONTH);
+                monthSpinner.setSelection(month1);
                 if (parent.getSelectedItemPosition() == 0) {
                     month = "01";
                 }
@@ -162,6 +168,9 @@ public class MyOrderActivity extends AppCompatActivity
         monthSpinner = (Spinner) findViewById(R.id.month_spinnerview);
         yearSpinner = (Spinner) findViewById(R.id.yearPinnserview);
         tvNoResult = (TextView) findViewById(R.id.noDatafound);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
     }
 
     /**
@@ -198,8 +207,10 @@ public class MyOrderActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.cart_action) {
+            Intent intent = new Intent(mContext, CartActivity.class);
+            intent.putExtra("Quantity", quantity);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -216,25 +227,41 @@ public class MyOrderActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile3) {
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
             invokeProfileWebService();
         } else if (id == R.id.nav_home3) {
-            startActivity(new Intent(mContext, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders3) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us3) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan3) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus3) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_logout3) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     /**
      * Web Service which sorts the data as per year and month selection
@@ -290,23 +317,26 @@ public class MyOrderActivity extends AppCompatActivity
                                 JSONArray jsonArray1 = jsonObject1.getJSONArray("order_products");
                                 orderProductsArrayList = new ArrayList<>();
                                 for (int j = 0; j < jsonArray1.length(); j++) {
-                                    order.setProduct_id(jsonArray1.getJSONObject(j).getString("product_id"));
-                                    order.setProductName(jsonArray1.getJSONObject(j).getString("product_name"));
-                                    order.setBrandId(jsonArray1.getJSONObject(j).getString("brand_id"));
-                                    order.setBrandName(jsonArray1.getJSONObject(j).getString("brand_name"));
-                                    order.setCategoryId(jsonArray1.getJSONObject(j).getString("category_id"));
-                                    order.setProductImage(jsonArray1.getJSONObject(j).getString("product_image"));
-                                    order.setProductCode(jsonArray1.getJSONObject(j).getString("product_code"));
-                                    order.setProductVolume(jsonArray1.getJSONObject(j).getString("product_volume"));
-                                    order.setProductPrice(jsonArray1.getJSONObject(j).getString("product_price"));
-                                    order.setQuantity(jsonArray1.getJSONObject(j).getString("quantity"));
-                                    orderProductsArrayList.add(order);
+                                    Order order1 = new Order();
+                                    order1.setProduct_id(jsonArray1.getJSONObject(j).getString("product_id"));
+                                    order1.setProductName(jsonArray1.getJSONObject(j).getString("product_name"));
+                                    order1.setBrandId(jsonArray1.getJSONObject(j).getString("brand_id"));
+                                    order1.setBrandName(jsonArray1.getJSONObject(j).getString("brand_name"));
+                                    order1.setCategoryId(jsonArray1.getJSONObject(j).getString("category_id"));
+                                    order1.setProductImage(jsonArray1.getJSONObject(j).getString("product_image"));
+                                    order1.setProductCode(jsonArray1.getJSONObject(j).getString("product_code"));
+                                    order1.setProductVolume(jsonArray1.getJSONObject(j).getString("product_volume"));
+                                    order1.setProductPrice(jsonArray1.getJSONObject(j).getString("product_price"));
+                                    order1.setQuantity(jsonArray1.getJSONObject(j).getString("quantity"));
+                                    orderProductsArrayList.add(order1);
                                 }
                                 Log.e("enquiryObject1s", String.valueOf(orderProductsArrayList.size()));
                                 order.setOrderArrayList(orderProductsArrayList);
                                 orderDataArraylist.add(order);
-                                filterArraylist.addAll(orderDataArraylist);
+//                                filterArraylist.add(order);
                                 fetchData();
+//                                Collections.sort(orderDataArraylist);
+                                Collections.reverse(orderDataArraylist);
                             }
                         } else {
                         }
@@ -422,9 +452,11 @@ public class MyOrderActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+                        orderProductsArrayList.clear();
+                        myOrderAdapter.notifyDataSetChanged();
+//                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

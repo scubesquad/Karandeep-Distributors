@@ -1,11 +1,15 @@
 package com.scube.karandeepdistributors.model;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Order model class for maintaining order details
  */
-public class Order {
+public class Order implements Serializable, Comparable<Order>{
     private String orderId, orderPrice, orderDate, product_id, productName, brandId, brandName, categoryId,
             productImage, productCode, productVolume, productPrice, quantity,placeOrderId,placeOrderquantity;
     ArrayList<Order> orderArrayList = new ArrayList<>();
@@ -134,7 +138,13 @@ public class Order {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public String setQuantity(String quantity) {
         this.quantity = quantity;
+        return quantity;
+    }
+
+    @Override
+    public int compareTo(@NonNull Order o) {
+            return 0;
     }
 }

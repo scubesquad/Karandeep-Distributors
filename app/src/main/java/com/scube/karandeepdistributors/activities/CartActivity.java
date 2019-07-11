@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class CartActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static CartAdapter cartAdapter;
     private RecyclerView cartRecyclerview;
+    Spinner spinner;
     private static Context mContext;
     ProgressDialogManager dialogManager;
     LoginSessionManger loginSessionManger;
@@ -67,20 +69,8 @@ public class CartActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initilizeview();
-        Intent intent = getIntent();
-//        quantity = intent.getStringExtra("Quantity");
-        CartClass cartClass = new CartClass();
+        final CartClass cartClass = new CartClass();
         brands = cartClass.getCartArrayList();
-       /* for (int i = 0; i < brands.size(); i++) {
-            Order order = new Order();
-            id = brands.get(i).getProduct_id();
-            quantity1 =brands.get(i).getQuantity();
-            order.setPlaceOrderId(id);
-            order.setPlaceOrderquantity(quantity1);
-            placeOrderArrayList.add(order);
-        }*/
-//        brands = cartClass.getPlaceOrderArraylist();
-//        quantity = brands.get(0).getQuantity();
         fetchData();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view3);
@@ -101,12 +91,26 @@ public class CartActivity extends AppCompatActivity
                 invokeplaceOrderWebservice(brands, loginSessionManger.getRetailerId());
             }
         });
+        try {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    quantity = parent.getSelectedItem().toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initilizeview() {
         mContext = CartActivity.this;
         cartRecyclerview = (RecyclerView) findViewById(R.id.recycler_view_cart);
-        Spinner spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinner);
         placeOrder = (Button) findViewById(R.id.placeOrder);
         loginSessionManger = new LoginSessionManger(mContext);
         dialogManager = new ProgressDialogManager(mContext);
@@ -182,35 +186,46 @@ public class CartActivity extends AppCompatActivity
      */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile2) {
             invokeProfileWebService();
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
-//            finish();
         } else if (id == R.id.nav_home2) {
-            startActivity(new Intent(mContext, MainActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders2) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us2) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan2) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
-//            finish();
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus2) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_logout2) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     /**
      * Profile Update/view Web Service
@@ -316,9 +331,11 @@ public class CartActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+                        brands.clear();
+                        cartAdapter.notifyDataSetChanged();
+                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -329,6 +346,7 @@ public class CartActivity extends AppCompatActivity
 
     /**
      * Web Service for placing Order
+     *
      * @param stringArrayList productsArraylist
      * @param retailerId      retailer/user Id
      */
@@ -368,7 +386,7 @@ public class CartActivity extends AppCompatActivity
                 try {
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
-                        showInfoDialog(status, response.getString("message"));
+                        showInfoDialog("Message", response.getString("message"));
                         brands.clear();
                         cartAdapter.notifyDataSetChanged();
                         refreshMenu();
@@ -382,7 +400,6 @@ public class CartActivity extends AppCompatActivity
 
     /**
      * Information Dialog box
-     *
      * @param title   title of dialog box
      * @param message detailed description message
      */

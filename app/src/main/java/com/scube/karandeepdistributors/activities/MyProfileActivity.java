@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -143,7 +142,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         etaddress.setText(address);
                         etMobileNo.setText(contact_no);
                         etemaild.setText(email);
-                        startActivity(new Intent(mContext,MainActivity.class));
+                        startActivity(new Intent(mContext, MainActivity.class));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

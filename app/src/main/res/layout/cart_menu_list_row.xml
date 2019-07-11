@@ -6,6 +6,7 @@
     app:cardElevation="4dp">
 
     <LinearLayout
+        android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -37,6 +38,29 @@
                         android:layout_marginLeft="10dp"
                         android:fontFamily="sans-serif"
                         android:maxLines="1"
+                        android:text="gghjghjd"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/orderId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/brand_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:maxLines="1"
+                        android:text="gghjghjd"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -47,6 +71,7 @@
                         android:layout_marginLeft="10dp"
                         android:fontFamily="sans-serif"
                         android:maxLines="1"
+                        android:text="gghjghjd"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -54,7 +79,6 @@
                         android:id="@+id/product_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/count"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif"
@@ -110,8 +134,8 @@
                             android:layout_marginStart="4dp"
                             android:fontFamily="sans-serif"
                             android:text="="
-                            android:textSize="18sp"
-                            android:textColor="@color/darkGrey" />
+                            android:textColor="@color/darkGrey"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/calculationResult"
@@ -122,6 +146,12 @@
                             android:textColor="@color/darkGrey"
                             android:textSize="18sp" />
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/update_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Update Qty" />
                 </LinearLayout>
             </LinearLayout>
 

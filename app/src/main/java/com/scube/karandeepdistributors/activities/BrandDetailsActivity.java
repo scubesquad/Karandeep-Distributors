@@ -14,9 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -99,6 +97,7 @@ public class BrandDetailsActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         refreshMenu();
+        fetchData();
         super.onResume();
     }
 
@@ -116,6 +115,12 @@ public class BrandDetailsActivity extends AppCompatActivity
         brandDetailsAdapter.notifyDataSetChanged();
 //        recyclerBrandlist.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 //        itemDecoration = new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.HORIZONTAL);
+    }
+
+    public void freeMemory() {
+        System.runFinalization();
+        Runtime.getRuntime().gc();
+        System.gc();
     }
 
     /**
@@ -193,10 +198,6 @@ public class BrandDetailsActivity extends AppCompatActivity
         invalidateOptionsMenu();
     }
 
-    public static void setProductQuantity(int value) {
-        quantity = value;
-    }
-
     /**
      * passes the MenuItem selected. You can identify the item by calling getItemId(), which returns the unique ID
      *
@@ -213,6 +214,7 @@ public class BrandDetailsActivity extends AppCompatActivity
         if (id == R.id.cart_action) {
             Intent intent = new Intent(mContext, CartActivity.class);
             intent.putExtra("Quantity", quantity);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -220,36 +222,43 @@ public class BrandDetailsActivity extends AppCompatActivity
 
     /**
      * Listener for handling events on navigation items.
-     *
      * @param item MenuItem: The selected item
      * @return
      */
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile1) {
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
-//            finish();
             invokeProfileWebService();
         } else if (id == R.id.nav_home1) {
-            startActivity(new Intent(mContext, MainActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders1) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
-//            finish();
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us1) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
-//            finish();
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan1) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
-//            finish();
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus1) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
-//            finish();
-        } else if (id == R.id.nav_logout1) {
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if (id == R.id.nav_logout5) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -307,6 +316,7 @@ public class BrandDetailsActivity extends AppCompatActivity
                             brands.setCode(jsonObject.getString("product_code"));
                             brands.setVolume(jsonObject.getString("product_volume"));
                             brands.setPrice(jsonObject.getString("product_price"));
+//                            brands.setQuantity(jsonObject.getString(""));
                             brandsArrayList.add(brands);
                             fetchData();
                         }
@@ -358,9 +368,11 @@ public class BrandDetailsActivity extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+                        brandsArrayList.clear();
+                        brandDetailsAdapter.notifyDataSetChanged();
+                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

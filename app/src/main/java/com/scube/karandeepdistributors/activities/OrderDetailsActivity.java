@@ -11,7 +11,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.scube.karandeepdistributors.CartClass;
 import com.scube.karandeepdistributors.R;
+import com.scube.karandeepdistributors.adapter.OrderDetailsAdapter;
+import com.scube.karandeepdistributors.model.Order;
 import com.scube.karandeepdistributors.utils.Constants;
 import com.scube.karandeepdistributors.utils.Converter;
 import com.scube.karandeepdistributors.utils.LoginSessionManger;
@@ -33,18 +39,23 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
-public class OrderDetails extends AppCompatActivity
+public class OrderDetailsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
-    String product_name, brand_name, volume, price, quantity, image;
-    TextView et_productName, et_brandName, et_volume, et_price, et_quantity;
+    TextView tv_noData;
     ImageView imageView;
     Context mContext;
     ProgressDialogManager dialogManager;
     LoginSessionManger loginSessionManger;
     TextView username, userEmail;
+    Order order = new Order();
+    ArrayList<Order> orderArrayList;
+    RecyclerView cartRecyclerview;
+    OrderDetailsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +86,26 @@ public class OrderDetails extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         intent = getIntent();
-        product_name = intent.getStringExtra("product_name");
+        order = (Order) getIntent().getSerializableExtra("orders");
+        orderArrayList = order.getOrderArrayList();
+        Log.e("EnquiryHistoryDetails", String.valueOf(order));
+        if (orderArrayList.size() == 0) {
+            cartRecyclerview.setVisibility(View.GONE);
+            tv_noData.setVisibility(View.VISIBLE);
+        } else {
+            cartRecyclerview.setVisibility(View.VISIBLE);
+            tv_noData.setVisibility(View.GONE);
+        }
+        Log.e("EnquiryHistoryDetails", String.valueOf(orderArrayList.size()));
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        cartRecyclerview.setLayoutManager(llm);
+        adapter = new OrderDetailsAdapter(getApplicationContext(), orderArrayList);
+        cartRecyclerview.setItemAnimator(new DefaultItemAnimator());
+        cartRecyclerview.setAdapter(adapter);
+        cartRecyclerview.setItemAnimator(new DefaultItemAnimator());
+
+       /* product_name = intent.getStringExtra("product_name");
         brand_name = intent.getStringExtra("brand_name");
         volume = intent.getStringExtra("volume");
         price = intent.getStringExtra("price");
@@ -85,7 +115,7 @@ public class OrderDetails extends AppCompatActivity
         et_brandName.setText(brand_name);
         et_volume.setText(volume);
         et_price.setText(price);
-        et_quantity.setText(quantity);
+        et_quantity.setText(quantity);*/
         Picasso.Builder builder = new Picasso.Builder(mContext);
         builder.listener(new Picasso.Listener() {
             @Override
@@ -93,7 +123,7 @@ public class OrderDetails extends AppCompatActivity
                 exception.printStackTrace();
             }
         });
-        builder.build().load(intent.getStringExtra("image")).into(imageView);
+//        builder.build().load(intent.getStringExtra("image")).into(imageView);
     }
 
     /**
@@ -102,14 +132,16 @@ public class OrderDetails extends AppCompatActivity
     private void initializeview() {
         mContext = this;
         loginSessionManger = new LoginSessionManger(mContext);
-        et_productName = (TextView) findViewById(R.id.product_name);
+       /* et_productName = (TextView) findViewById(R.id.product_name);
         et_brandName = (TextView) findViewById(R.id.brand_name);
         et_volume = (TextView) findViewById(R.id.product_volume);
         et_price = (TextView) findViewById(R.id.product_price);
         et_quantity = (TextView) findViewById(R.id.product_qty);
-        imageView = (ImageView) findViewById(R.id.product_image);
+        imageView = (ImageView) findViewById(R.id.product_image);*/
+        tv_noData = (TextView) findViewById(R.id.tv_noData);
         loginSessionManger = new LoginSessionManger(mContext);
         dialogManager = new ProgressDialogManager(mContext);
+        cartRecyclerview = (RecyclerView) findViewById(R.id.cartRecyclerview);
     }
 
     @Override
@@ -122,9 +154,9 @@ public class OrderDetails extends AppCompatActivity
         }
     }
 
-    private void invokeGetOrderWebService(){
-
+    private void invokeGetOrderWebService() {
     }
+
     @Override
     protected void onResume() {
         invalidateOptionsMenu();
@@ -179,25 +211,41 @@ public class OrderDetails extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile51) {
-//            startActivity(new Intent(mContext,MyProfileActivity.class));
             invokeProfileWebService();
         } else if (id == R.id.nav_home51) {
-            startActivity(new Intent(mContext, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_myOrders51) {
-            startActivity(new Intent(mContext, MyOrderActivity.class));
+            Intent intent = new Intent(this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_about_us51) {
-            startActivity(new Intent(mContext, AboutUsActivity.class));
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_route_plan51) {
-            startActivity(new Intent(mContext, RoutePlanActivity.class));
+            Intent intent = new Intent(this, RoutePlanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_contactus51) {
-            startActivity(new Intent(mContext, ContactUsActivity.class));
+            Intent intent = new Intent(this, ContactUsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_logout51) {
             invokeLogoutWerService();
+//            count = 0;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     /**
      * Profile Update/view Web Service
@@ -303,15 +351,18 @@ public class OrderDetails extends AppCompatActivity
                     String status = String.valueOf(response.getString("status"));
                     if (status.equalsIgnoreCase("200")) {
                         loginSessionManger.deleteAll();
-//                        showInfoDialog("Success", response.getString("message"));
                         startActivity(new Intent(mContext, SignInActivity.class));
                         finish();
+//                        refreshMenu();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+    private void refreshMenu() {
+        invalidateOptionsMenu();
     }
 
     /**

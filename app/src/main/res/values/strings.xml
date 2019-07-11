@@ -24,26 +24,26 @@
     <string name="title_activity_route_plan">Route Plan</string>
     <string name="title_activity_about_us"> About Us </string>
     <string-array name="quantity">
-        <item> 1 ML </item>
-        <item> 2 ML </item>
-        <item> 3 ML </item>
-        <item> 4 ML </item>
-        <item> 5 ML </item>
-        <item> 6 ML </item>
-        <item> 7 ML </item>
-        <item> 8 ML </item>
-        <item> 9 ML </item>
-        <item> 10 ML </item>
-        <item> 11 ML </item>
-        <item> 12 ML </item>
-        <item> 13 ML </item>
-        <item> 14 ML </item>
-        <item> 15 ML </item>
-        <item> 16 ML </item>
-        <item> 17 ML </item>
-        <item> 18 ML </item>
-        <item> 19 ML </item>
-        <item> 20 ML </item>
+        <item> 1  </item>
+        <item> 2  </item>
+        <item> 3  </item>
+        <item> 4  </item>
+        <item> 5  </item>
+        <item> 6  </item>
+        <item> 7  </item>
+        <item> 8  </item>
+        <item> 9  </item>
+        <item> 10  </item>
+        <item> 11  </item>
+        <item> 12  </item>
+        <item> 13  </item>
+        <item> 14  </item>
+        <item> 15  </item>
+        <item> 16  </item>
+        <item> 17  </item>
+        <item> 18  </item>
+        <item> 19  </item>
+        <item> 20  </item>
     </string-array>
     <string name="company_overview">
 Established in 1985, Karandeep Enterprises (Karandeep) is one of the most reputed distribution companies in Mumbai. The main areas of business include stocking and distribution of Fast Moving Consumer Goods, Pharmaceutical and Herbal Products.
